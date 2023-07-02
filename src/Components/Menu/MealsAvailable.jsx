@@ -1,3 +1,5 @@
+import Card from '../UI/Card/Card';
+import MealItem from './MealItem/MealItem';
 import classes from './MealsAvailable.module.css';
 const DUMMY_MEALS = [
     {
@@ -24,19 +26,32 @@ const DUMMY_MEALS = [
         description: 'Healthy...and green...',
         price: 18.99,
     },
+    {
+        id: 'm5',
+        name: 'Palak Paneer',
+        description: 'A Healthy Protein filled food',
+        price: 19.99,
+    }
 ];
 
 const MealsAvailable = (props) => {
+    //Creating list of Meals using map 
     const mealslist = DUMMY_MEALS.map((meal) => {
-        return <li>{meal.name}</li>
+        return <MealItem
+            key={meal.id}
+            meals={meal}
+        />
     })
+    console.log(mealslist);
 
     return (
-        <section className="meals">
-            <ul>
-                {mealslist}
-            </ul>
-        </section>
+        <section className={classes.meals}>
+            <Card >
+                <ul >
+                    {mealslist}
+                </ul>
+            </Card>
+        </section >
     )
 }
 export default MealsAvailable;

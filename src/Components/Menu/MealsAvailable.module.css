@@ -11,6 +11,10 @@
     padding: 0;
 }
 
+.meals li {
+    color: black;
+}
+
 @keyframes meals-appear {
     from {
         opacity: 0;
