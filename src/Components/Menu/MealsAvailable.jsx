@@ -31,6 +31,7 @@ const DUMMY_MEALS = [
         name: 'Palak Paneer',
         description: 'A Healthy Protein filled food',
         price: 19.99,
+        qty: 0
     }
 ];
 

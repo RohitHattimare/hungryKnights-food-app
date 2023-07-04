@@ -18,3 +18,14 @@
     background-color: #641e03;
     border-color: #641e03;
 }
+
+.error {
+    width: 10rem;
+    font-size: 0.8rem;
+    color: red;
+}
+
+/* 
+.noerror {
+    display: none;
+} */

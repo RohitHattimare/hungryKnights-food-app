@@ -1,5 +1,9 @@
+import CartContext from '../../store/card-context';
 import Modal from '../UI/Modal/Modal';
 import classes from './Cart.module.css';
+import React, { useContext } from 'react'
+
+
 const itemList = [{
   id: 'm1',
   name: 'Sushi',
@@ -14,17 +18,19 @@ const itemList = [{
 }]
 
 function Cart(props) {
+
+  const cartCtx = useContext(CartContext);
   const list = <ul className={classes['cart-item']}>
-    {itemList.map(item => <li>{item.name}</li>)}
+    {cartCtx.items.map(item => <li>{item.name}</li>)}
   </ul>
   console.log("list data", list)
 
   return (
     <Modal onClick={props.onHideCart}>
-      {list}
+      {cartCtx.items.length > 0 && cartCtx.items}
       <div className={classes['total']} >
         <span> Total Price</span>
-        <span>40$</span>
+        <span>{" $" + cartCtx.totalAmount}</span>
       </div>
       <div className={classes.actions}>
         <button onClick={props.onHideCart} className={classes['button--alt']}>Close</button>
