@@ -4,37 +4,39 @@ import classes from './Cart.module.css';
 import React, { useContext } from 'react'
 
 
-const itemList = [{
-  id: 'm1',
-  name: 'Sushi',
-  description: 'Finest fish and veggies',
-  price: 22.99,
-},
-{
-  id: 'm2',
-  name: 'Schnitzel',
-  description: 'A german specialty!',
-  price: 16.5,
-}]
+// const itemList = [{
+//   id: 'm1',
+//   name: 'Sushi',
+//   description: 'Finest fish and veggies',
+//   price: 22.99,
+// },
+// {
+//   id: 'm2',
+//   name: 'Schnitzel',
+//   description: 'A german specialty!',
+//   price: 16.5,
+// }]
 
 function Cart(props) {
 
-  const cartCtx = useContext(CartContext);
-  const list = <ul className={classes['cart-item']}>
-    {cartCtx.items.map(item => <li>{item.name}</li>)}
-  </ul>
-  console.log("list data", list)
+  const { items, totalAmount } = useContext(CartContext);
+  const hasItems = items.length > 0;
+  let totalAmt = +totalAmount.toFixed(2);
+  const List = () => (<ul className={classes['cart-item']}>
+    {items.map(item => <li key={item.id}>{item.name}</li>)}
+  </ul>);
+
 
   return (
     <Modal onClick={props.onHideCart}>
-      {cartCtx.items.length > 0 && cartCtx.items}
+      {items.length > 0 && List()}
       <div className={classes['total']} >
         <span> Total Price</span>
-        <span>{" $" + cartCtx.totalAmount}</span>
+        <span>{` $${totalAmt}`}</span>
       </div>
       <div className={classes.actions}>
         <button onClick={props.onHideCart} className={classes['button--alt']}>Close</button>
-        <button className={classes.button}>Order</button>
+        {hasItems && <button className={classes.button}>Order</button>}
       </div>
     </Modal>
 
