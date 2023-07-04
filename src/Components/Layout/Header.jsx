@@ -4,6 +4,7 @@ import COVERIMAGE from './../../assets/foodcover.jpg'
 import HeaderCartButton from "./HeaderCartButton"
 
 function Header(props) {
+
     return (
         <Fragment>
             <header className={classes.header}>

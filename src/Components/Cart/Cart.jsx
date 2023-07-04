@@ -20,7 +20,7 @@ function Cart(props) {
   console.log("list data", list)
 
   return (
-    <Modal>
+    <Modal onClick={props.onHideCart}>
       {list}
       <div className={classes['total']} >
         <span> Total Price</span>

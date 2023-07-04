@@ -42,7 +42,7 @@ const MealsAvailable = (props) => {
             meals={meal}
         />
     })
-    console.log(mealslist);
+    // console.log(mealslist);
 
     return (
         <section className={classes.meals}>
