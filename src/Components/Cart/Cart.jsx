@@ -2,28 +2,35 @@ import CartContext from '../../store/card-context';
 import Modal from '../UI/Modal/Modal';
 import classes from './Cart.module.css';
 import React, { useContext } from 'react'
-
-
-// const itemList = [{
-//   id: 'm1',
-//   name: 'Sushi',
-//   description: 'Finest fish and veggies',
-//   price: 22.99,
-// },
-// {
-//   id: 'm2',
-//   name: 'Schnitzel',
-//   description: 'A german specialty!',
-//   price: 16.5,
-// }]
+import CartItem from './CartItem';
 
 function Cart(props) {
 
   const { items, totalAmount } = useContext(CartContext);
   const hasItems = items.length > 0;
   let totalAmt = +totalAmount.toFixed(2);
-  const List = () => (<ul className={classes['cart-item']}>
-    {items.map(item => <li key={item.id}>{item.name}</li>)}
+
+  //Cart Item Button Handles to add & remove items
+  const addItemCartHandler = (item) => {
+    //check for current quantity and add to that items quantity
+
+  }
+  const removeItemCartHandler = (item) => {
+    //check for current quantity and remove 1 qty from it 
+
+  }
+
+  //Cart Item List
+  const List = () => (<ul className={classes['cart-items']}>
+    {items.map(item =>
+      // <li key={item.id}>{item.name}</li>
+      <CartItem
+        key={item.id}
+        item={item}
+        onAdd={addItemCartHandler.bind(null, item.id)}
+        onRemove={removeItemCartHandler.bind(null, item)}
+      />
+    )}
   </ul>);
 
 

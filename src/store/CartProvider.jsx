@@ -8,21 +8,42 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
     if (action.type === 'ADD') {
-        const updatedItems = state.items.concat(action.item);
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.qty;
+
+        //check if item is already in the cart
+        const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id);
+        const existingCartItem = state.items[existingCartItemIndex];
+        let updatedItem;
+        let updatedItems;
+        //Check if itemis already is in the cart if found update that item with data from action
+        if (existingCartItem) {
+            updatedItem = {
+                ...existingCartItem,
+                qty: existingCartItem.qty + action.item.qty
+            }
+            updatedItems = [...state.items];
+            updatedItems[existingCartItemIndex] = updatedItem;
+        }
+        else {
+            //For new item that is not in the cart
+            updatedItems = state.items.concat(action.item);
+        }
+
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount
         }
     }
-    return defaultCartState; //returning the default state
+    return defaultCartState;
 }
 
 function CardProvider(props) {
 
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
     const addItemToCart = (item) => {
-        //check if item is already in the cart
+
+        //if yes, increase the quantity
+
         //if yes, increase the quantity
         dispatchCartAction({ type: 'ADD', item: item })
         //if no, add the item to the cart
