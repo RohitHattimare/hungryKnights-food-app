@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Card from '../UI/Card/Card';
 import MealItem from './MealItem/MealItem';
 import classes from './MealsAvailable.module.css';
@@ -31,12 +32,14 @@ const DUMMY_MEALS = [
         name: 'Palak Paneer',
         description: 'A Healthy Protein filled food',
         price: 19.99,
+        qty: 0
     }
 ];
 
 const MealsAvailable = (props) => {
+    // const cartCtx = useContext(CartContext)
     //Creating list of Meals using map 
-    const mealslist = DUMMY_MEALS.map((meal) => {
+    const mealList = DUMMY_MEALS.map((meal) => {
         return <MealItem
             key={meal.id}
             meals={meal}
@@ -48,7 +51,7 @@ const MealsAvailable = (props) => {
         <section className={classes.meals}>
             <Card >
                 <ul >
-                    {mealslist}
+                    {mealList}
                 </ul>
             </Card>
         </section >
