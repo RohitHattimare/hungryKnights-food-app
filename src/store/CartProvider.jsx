@@ -72,7 +72,7 @@ function CardProvider(props) {
         dispatchCartAction({ type: 'REMOVE', id: id });
     }
     console.log(cartState)
-    //Static cart Data - demo
+    //Update the ctx value with handlers
     const cartItem = {
         items: cartState?.items,
         totalAmount: cartState?.totalAmount,
