@@ -7,7 +7,7 @@ import CartContext from '../../../store/card-context';
 const MealItem = (props) => {
     const cartCtx = useContext(CartContext);
     const { name, description: descr, price } = props.meals;
-    //Add quantity with items from input
+    //Add quantity with items from input (Handle for inputForm)
     const addToCartHandle = (qty) => {
         cartCtx.addItem({
             id: props.meals.id,

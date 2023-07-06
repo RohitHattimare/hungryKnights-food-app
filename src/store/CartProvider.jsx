@@ -9,7 +9,6 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
     if (action.type === 'ADD') {
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.qty;
-
         //check if item is already in the cart
         const existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id);
         const existingCartItem = state.items[existingCartItemIndex];
@@ -28,7 +27,33 @@ const cartReducer = (state, action) => {
             //For new item that is not in the cart
             updatedItems = state.items.concat(action.item);
         }
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount
+        }
+    }
+    if (action.type === "REMOVE") {
+        const existingItemsIndex = state.items.findIndex(
+            (item) => item.id === action.id
+        );
+        const existingItem = state.items[existingItemsIndex];
+        console.log("remove-item", existingItemsIndex)
+        const updatedTotalAmount = state.totalAmount - existingItem.price;
+        console.log("index", existingItemsIndex)
 
+        let updatedItems;
+        if (existingItem.qty === 1) {
+            //For Qty 1 item should be removed from cart
+            updatedItems = state.items.filter(item => item.id !== action.id);
+        }
+        else {
+            const updatedItem = {
+                ...existingItem,
+                qty: existingItem.qty - 1
+            }
+            updatedItems = [...state.items];
+            updatedItems[existingItemsIndex] = updatedItem;
+        }
         return {
             items: updatedItems,
             totalAmount: updatedTotalAmount
@@ -46,11 +71,11 @@ function CardProvider(props) {
     const removeItemFromCart = (id) => {
         dispatchCartAction({ type: 'REMOVE', id: id });
     }
-
+    console.log(cartState)
     //Static cart Data - demo
     const cartItem = {
-        items: cartState.items,
-        totalAmount: cartState.totalAmount,
+        items: cartState?.items,
+        totalAmount: cartState?.totalAmount,
         addItem: addItemToCart,
         removeItem: removeItemFromCart
     };

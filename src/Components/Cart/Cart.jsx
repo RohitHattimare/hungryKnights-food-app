@@ -7,18 +7,17 @@ import CartItem from './CartItem';
 function Cart(props) {
   const cartCtx = useContext(CartContext);
   const { items, totalAmount } = useContext(CartContext);
-  const hasItems = items.length > 0;
+  const hasItems = items?.length > 0;
   let totalAmt = +totalAmount?.toFixed(2)
 
-  //Cart Item Button Handles to add & remove items
+  //Cart Item Button Handle to add items with 1 qty 
   const addItemCartHandler = (item) => {
-    console.log(item)
     cartCtx.addItem({ ...item, qty: 1 })
-    // cartCtx.addItem(item)
   }
 
   const removeItemCartHandler = (item) => {
     //check for current quantity and remove 1 qty from it 
+    cartCtx.removeItem(item)
   }
 
   //Cart Item List
@@ -36,7 +35,7 @@ function Cart(props) {
 
   return (
     <Modal onClick={props.onHideCart}>
-      {items.length > 0 && List()}
+      {items?.length > 0 && List()}
       <div className={classes['total']} >
         <span> Total Price</span>
         <span>{` $${totalAmt}`}</span>
