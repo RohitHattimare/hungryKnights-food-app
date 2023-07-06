@@ -41,15 +41,9 @@ function CardProvider(props) {
 
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
     const addItemToCart = (item) => {
-
-        //if yes, increase the quantity
-
-        //if yes, increase the quantity
         dispatchCartAction({ type: 'ADD', item: item })
-        //if no, add the item to the cart
     }
     const removeItemFromCart = (id) => {
-        //Remove Items from the Cart
         dispatchCartAction({ type: 'REMOVE', id: id });
     }
 
