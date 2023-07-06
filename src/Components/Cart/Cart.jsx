@@ -5,30 +5,30 @@ import React, { useContext } from 'react'
 import CartItem from './CartItem';
 
 function Cart(props) {
-
+  const cartCtx = useContext(CartContext);
   const { items, totalAmount } = useContext(CartContext);
   const hasItems = items.length > 0;
-  let totalAmt = +totalAmount.toFixed(2);
+  let totalAmt = +totalAmount?.toFixed(2)
 
   //Cart Item Button Handles to add & remove items
   const addItemCartHandler = (item) => {
-    //check for current quantity and add to that items quantity
-
+    console.log(item)
+    cartCtx.addItem({ ...item, qty: 1 })
+    // cartCtx.addItem(item)
   }
+
   const removeItemCartHandler = (item) => {
     //check for current quantity and remove 1 qty from it 
-
   }
 
   //Cart Item List
   const List = () => (<ul className={classes['cart-items']}>
     {items.map(item =>
-      // <li key={item.id}>{item.name}</li>
       <CartItem
         key={item.id}
         item={item}
-        onAdd={addItemCartHandler.bind(null, item.id)}
-        onRemove={removeItemCartHandler.bind(null, item)}
+        onAdd={addItemCartHandler.bind(null, item)}
+        onRemove={removeItemCartHandler.bind(null, item.id)}
       />
     )}
   </ul>);
@@ -47,58 +47,6 @@ function Cart(props) {
       </div>
     </Modal>
 
-  );
+  )
 }
-
 export default Cart;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import classes from './CartItem.module.css';
-
-// const CartItem = (props) => {
-//   const price = `$${props.price.toFixed(2)}`;
-
-//   return (
-//     <li className={classes['cart-item']}>
-//       <div>
-//         <h2>{props.name}</h2>
-//         <div className={classes.summary}>
-//           <span className={classes.price}>{price}</span>
-//           <span className={classes.amount}>x {props.amount}</span>
-//         </div>
-//       </div>
-//       <div className={classes.actions}>
-//         <button onClick={props.onRemove}>−</button>
-//         <button onClick={props.onAdd}>+</button>
-//       </div>
-//     </li>
-//   );
-// };
-
-// export default CartItem;
