@@ -22,6 +22,16 @@ function Cart(props) {
     cartCtx.removeItem(item)
   }
 
+  const submitOrderHandler = (userData) => {
+    fetch('https://hungryknights-01-default-rtdb.asia-southeast1.firebasedatabase.app/order.json', {
+      method: 'POST',
+      body: JSON.stringify({
+        user: userData,
+        orderedItems: items,
+      })
+    })
+  }
+
   //Cart Item List
   const List = () => (<ul className={classes['cart-items']}>
     {items.map(item =>
@@ -53,7 +63,7 @@ function Cart(props) {
         <span> Total Price</span>
         <span>{` Rs. ${totalAmt}`}</span>
       </div>
-      {onCheckout && <Checkout onCancel={props.onHideCart} />}
+      {onCheckout && <Checkout onConfirm={submitOrderHandler} onCancel={props.onHideCart} />}
       {!onCheckout && actionButtons}
     </Modal>
 
