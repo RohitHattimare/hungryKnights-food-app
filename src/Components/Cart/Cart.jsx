@@ -1,12 +1,15 @@
 import CartContext from '../../store/card-context';
 import Modal from '../UI/Modal/Modal';
 import classes from './Cart.module.css';
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import CartItem from './CartItem';
 import Checkout from './Checkout/Checkout';
 
 function Cart(props) {
-  const [onCheckout, setOnCheckout] = React.useState(false);
+  const [onCheckout, setOnCheckout] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
+
   const cartCtx = useContext(CartContext);
   const { items, totalAmount } = useContext(CartContext);
   const hasItems = items?.length > 0;
@@ -23,6 +26,7 @@ function Cart(props) {
   }
 
   const submitOrderHandler = (userData) => {
+    setIsSubmitting(true)
     fetch('https://hungryknights-01-default-rtdb.asia-southeast1.firebasedatabase.app/order.json', {
       method: 'POST',
       body: JSON.stringify({
@@ -30,6 +34,8 @@ function Cart(props) {
         orderedItems: items,
       })
     })
+    setIsSubmitting(false)
+    setDidSubmit(true)
   }
 
   //Cart Item List
@@ -55,16 +61,26 @@ function Cart(props) {
   </div>
   )
 
+  const cartModalContent = (<>
+    {items?.length > 0 && List()}
+    <div className={classes['total']} >
+      <span> Total Price</span>
+      <span>{` Rs. ${totalAmt}`}</span>
+    </div>
+    {onCheckout && <Checkout onConfirm={submitOrderHandler} onCancel={props.onHideCart} />}
+    {!onCheckout && actionButtons}
+  </>)
+
+  const isSubmittingModalContent = (<h6> Submitting Order ... </h6>)
+  const didSubmitModalContent = (<h5>
+    Order Submitted Successfully will be Delivered in a while   !!!
+  </h5>)
 
   return (
     <Modal onClick={props.onHideCart}>
-      {items?.length > 0 && List()}
-      <div className={classes['total']} >
-        <span> Total Price</span>
-        <span>{` Rs. ${totalAmt}`}</span>
-      </div>
-      {onCheckout && <Checkout onConfirm={submitOrderHandler} onCancel={props.onHideCart} />}
-      {!onCheckout && actionButtons}
+      {!isSubmitting && !didSubmit && cartModalContent}
+      {isSubmitting && isSubmittingModalContent}
+      {!isSubmitting && didSubmit && didSubmitModalContent}
     </Modal>
 
   )
