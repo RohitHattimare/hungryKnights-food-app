@@ -1,51 +1,37 @@
-import { useContext } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../UI/Card/Card';
 import MealItem from './MealItem/MealItem';
 import classes from './MealsAvailable.module.css';
-// const DUMMY_MEALS = [
-//     {
-//         id: 'm1',
-//         name: 'Sushi',
-//         description: 'Finest fish and veggies',
-//         price: 22.99,
-//     },
-//     {
-//         id: 'm2',
-//         name: 'Schnitzel',
-//         description: 'A german specialty!',
-//         price: 16.5,
-//     },
-//     {
-//         id: 'm3',
-//         name: 'Barbecue Burger',
-//         description: 'American, raw, meaty',
-//         price: 12.99,
-//     },
-//     {
-//         id: 'm4',
-//         name: 'Green Bowl',
-//         description: 'Healthy...and green...',
-//         price: 18.99,
-//     },
-//     {
-//         id: 'm5',
-//         name: 'Palak Paneer',
-//         description: 'A Healthy Protein filled food',
-//         price: 19.99,
-//         qty: 0
-//     }
-// ];
 
 const MealsAvailable = (props) => {
-    // const cartCtx = useContext(CartContext)
-    //Creating list of Meals using map 
-    const mealList = DUMMY_MEALS.map((meal) => {
+    const [meals, setMeals] = useState([]);
+    useEffect(() => {
+        const fetchMeals = async () => {
+            const response = await fetch('https://hungryknights-01-default-rtdb.asia-southeast1.firebasedatabase.app/Meals.json')
+            const fetchedMeals = await response.json()
+
+            const Meals = [];
+            for (let key in fetchedMeals) {
+                Meals.push({
+                    id: key,
+                    name: fetchedMeals[key].name,
+                    description: fetchedMeals[key].description,
+                    price: fetchedMeals[key].price
+                })
+            }
+            console.log('Meals After Transformation', Meals)
+            setMeals(Meals)
+        }
+        fetchMeals();
+
+    }, [])
+
+    const mealList = meals.map((meal) => {
         return <MealItem
             key={meal.id}
             meals={meal}
         />
     })
-    // console.log(mealslist);
 
     return (
         <section className={classes.meals}>
