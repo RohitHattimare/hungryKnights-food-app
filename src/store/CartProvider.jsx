@@ -59,26 +59,38 @@ const cartReducer = (state, action) => {
             totalAmount: updatedTotalAmount
         }
     }
+    if (action.type === "CLEAR") {
+        return defaultCartState;
+    }
     return defaultCartState;
 }
 
 function CardProvider(props) {
 
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
+
     const addItemToCart = (item) => {
         dispatchCartAction({ type: 'ADD', item: item })
     }
+
     const removeItemFromCart = (id) => {
         dispatchCartAction({ type: 'REMOVE', id: id });
     }
-    console.log(cartState)
+
+    const clearCartHandler = () => {
+        dispatchCartAction({ type: 'CLEAR' });
+    }
+
     //Update the ctx value with handlers
     const cartItem = {
         items: cartState?.items,
         totalAmount: cartState?.totalAmount,
         addItem: addItemToCart,
-        removeItem: removeItemFromCart
+        removeItem: removeItemFromCart,
+        clearCart: clearCartHandler
     };
+
+
     return (
         <CartContext.Provider value={cartItem}>
             {props.children}
