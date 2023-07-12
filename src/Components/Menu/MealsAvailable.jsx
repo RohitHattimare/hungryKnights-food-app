@@ -9,7 +9,6 @@ const MealsAvailable = (props) => {
         const fetchMeals = async () => {
             const response = await fetch('https://hungryknights-01-default-rtdb.asia-southeast1.firebasedatabase.app/Meals.json')
             const fetchedMeals = await response.json()
-
             const Meals = [];
             for (let key in fetchedMeals) {
                 Meals.push({
@@ -19,11 +18,10 @@ const MealsAvailable = (props) => {
                     price: fetchedMeals[key].price
                 })
             }
-            console.log('Meals After Transformation', Meals)
+            // console.log('Meals After Transformation', Meals)
             setMeals(Meals)
         }
         fetchMeals();
-
     }, [])
 
     const mealList = meals.map((meal) => {
