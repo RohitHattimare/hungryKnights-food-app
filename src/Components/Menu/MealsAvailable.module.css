@@ -5,6 +5,24 @@
     animation: meals-appear 1s ease-out forwards;
 }
 
+p {
+    color: black;
+    font-weight: unset;
+}
+
+
+.mealsLoading {
+    color: rgb(35, 20, 70);
+    font: 1.5rem sans-serif;
+    text-align: center;
+}
+
+.mealsError {
+    color: rgb(203, 0, 37);
+    font: 1.5rem sans-serif;
+    text-align: center;
+}
+
 .meals ul {
     list-style: none;
     margin: 0;
