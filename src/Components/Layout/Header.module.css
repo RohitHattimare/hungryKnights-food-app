@@ -4,7 +4,7 @@
     left: 0;
     width: 85%;
     height: 5rem;
-    background-color: #9123ac;
+    background: linear-gradient(to right, hsl(326, 100%, 35%) 3%, hsl(326, 100%, 35%) 3%, hsl(318, 100%, 33%) 11%, hsl(266, 66%, 59%) 100%, hsl(320, 70%, 54%) 100%);
     color: white;
     align-items: center;
     padding: 0 10%;
