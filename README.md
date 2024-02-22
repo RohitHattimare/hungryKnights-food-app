@@ -2,7 +2,6 @@
 
 This is a React application for ordering food. It provides functionalities such as viewing a list of available meals and managing a shopping cart.
 you can check Application Here
-```sh
 [https://hungry-knights.vercel.app/]
 
 ## Features
