@@ -14,6 +14,9 @@ you can check Application Here [https://hungry-knights.vercel.app/]
 
 - React
 - Context API for state management
+- JS
+- HTML
+- CSS modules
 
 ## Getting Started
 
@@ -23,7 +26,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Node.js
 - npm
-
+- Vite
+  
 ### Installation
 
 1. Clone the repo
